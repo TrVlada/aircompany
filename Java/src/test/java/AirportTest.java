@@ -10,7 +10,6 @@ import type.ExperimentalType;
 import type.MilitaryType;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class AirportTest {
@@ -37,13 +36,59 @@ public class AirportTest {
             new PassengerPlane("Boeing-747", 980, 16100, 70500, 242);
     private static final MilitaryType TRANSPORT_MILITARY_TYPE = MilitaryType.TRANSPORT;
     private static final MilitaryType BOMBER_MILITARY_TYPE = MilitaryType.BOMBER;
-    private static final ClassificationLevelType UNCLASSIFIED_EXPERIMENTAL_CLASSIFICATION_LEVEL = ClassificationLevelType.UNCLASSIFIED;
+    private static final MilitaryType FIGHTER_MILITARY_TYPE = MilitaryType.FIGHTER;
+    private static final ExperimentalType VTOL_EXPERIMENTAL_TYPE = ExperimentalType.VTOL;
+    private static final ExperimentalType HIGH_ALTITUDE_EXPERIMENTAL_TYPE = ExperimentalType.HIGH_ALTITUDE;
+    private static final ExperimentalType LIFTING_BODY_EXPERIMENTAL_TYPE = ExperimentalType.LIFTING_BODY;
+    private static final ClassificationLevelType UNCLASSIFIED_EXPERIMENTAL_CLASSIFICATION_LEVEL_TYPE = ClassificationLevelType.UNCLASSIFIED;
+    private static final ClassificationLevelType CONFIDENTIAL_EXPERIMENTAL_CLASSIFICATION_LEVEL_TYPE = ClassificationLevelType.CONFIDENTIAL;
+
     private static final MilitaryPlane BOMBER_MILITARY_PLANE =
             new MilitaryPlane("B-1B Lancer", 1050, 21000, 80000, MilitaryType.BOMBER);
 
     @Test
+    public void testHasPlanes() {
+        Assert.assertFalse(new Airport(planes).getPlanes().isEmpty());
+    }
+
+    @Test
+    public void testHasPassengerPlanes() {
+        Assert.assertFalse(new Airport(planes).getPassengerPlanes().isEmpty());
+    }
+
+    @Test
     public void testHasTransportMilitaryPlanes() {
         Assert.assertFalse(new Airport(planes).getMilitaryPlanesByCertainType(TRANSPORT_MILITARY_TYPE).isEmpty());
+    }
+
+    @Test
+    public void testHasBomberMilitaryPlanes() {
+        Assert.assertFalse(new Airport(planes).getMilitaryPlanesByCertainType(FIGHTER_MILITARY_TYPE).isEmpty());
+    }
+
+    @Test
+    public void testHasFighterMilitaryPlanes() {
+        Assert.assertFalse(new Airport(planes).getMilitaryPlanesByCertainType(MilitaryType.FIGHTER).isEmpty());
+    }
+
+    @Test
+    public void testHasVtolExperimentalPlanes() {
+        Assert.assertFalse(new Airport(planes).getExperimentalPlanesByCertainType(VTOL_EXPERIMENTAL_TYPE).isEmpty());
+    }
+
+    @Test
+    public void testHasHighAltitudeExperimentalPlanes() {
+        Assert.assertFalse(new Airport(planes).getExperimentalPlanesByCertainType(HIGH_ALTITUDE_EXPERIMENTAL_TYPE).isEmpty());
+    }
+
+    @Test
+    public void testHasZeroHighAltitudeExperimentalPlanes() {
+        Assert.assertTrue(new Airport(planes).getExperimentalPlanesByCertainType(LIFTING_BODY_EXPERIMENTAL_TYPE).isEmpty());
+    }
+
+    @Test
+    public void testHasMilitaryPlanes() {
+        Assert.assertFalse(new Airport(planes).getMilitaryPlanes().isEmpty());
     }
 
     @Test
@@ -60,12 +105,38 @@ public class AirportTest {
     }
 
     @Test
+    public void testSortExperimentalPlanesByMaxDistance() {
+        Airport airport = new Airport(planes);
+        airport.sortPlanesByMaxFlightDistance();
+        List<? extends Plane> planesSortedByMaxFlightDistance = airport.getExperimentalPlanes();
+        Assert.assertTrue(planesSortedByMaxFlightDistance.get(0).getMaxFlightDistance() <= planesSortedByMaxFlightDistance.get(1).getMaxFlightDistance());
+    }
+
+    @Test
+    public void testSortExperimentalPlanesByMaxSpeed() {
+        Airport airport = new Airport(planes);
+        airport.sortPlanesByMaxSpeed();
+        List<? extends Plane> planesSortedByByMaxSpeed = airport.getExperimentalPlanes();
+        Assert.assertTrue(planesSortedByByMaxSpeed.get(0).getMaxSpeed() <= planesSortedByByMaxSpeed.get(1).getMaxSpeed());
+    }
+
+    @Test
     public void testHasAtLeastOneBomberInMilitaryPlanes() {
         Assert.assertTrue(new Airport(planes).getMilitaryPlanesByCertainType(BOMBER_MILITARY_TYPE).contains(BOMBER_MILITARY_PLANE));
     }
 
     @Test
     public void testExperimentalPlanesHasClassificationLevelHigherThanUnclassified(){
-        Assert.assertFalse(new Airport(planes).getClassificationLevelsInExperimentalPlanes().contains(UNCLASSIFIED_EXPERIMENTAL_CLASSIFICATION_LEVEL));
+        Assert.assertFalse(new Airport(planes).getClassificationLevelsInExperimentalPlanes().contains(UNCLASSIFIED_EXPERIMENTAL_CLASSIFICATION_LEVEL_TYPE));
+    }
+
+    @Test
+    public void testExperimentalPlanesHasConfidentialLevelHigherThanUnclassified(){
+        Assert.assertFalse(new Airport(planes).getClassificationLevelsInExperimentalPlanes().contains(CONFIDENTIAL_EXPERIMENTAL_CLASSIFICATION_LEVEL_TYPE));
+    }
+
+    @Test
+    public void testHasExperimentalPlanes() {
+        Assert.assertFalse(new Airport(planes).getExperimentalPlanes().isEmpty());
     }
 }

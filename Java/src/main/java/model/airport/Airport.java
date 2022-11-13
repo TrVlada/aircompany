@@ -5,7 +5,9 @@ import model.plane.MilitaryPlane;
 import model.plane.PassengerPlane;
 import model.plane.Plane;
 import type.ClassificationLevelType;
+import type.ExperimentalType;
 import type.MilitaryType;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -22,7 +24,7 @@ public class Airport {
         return planes;
     }
 
-    public List<PassengerPlane> getPassengerPlane() {
+    public List<PassengerPlane> getPassengerPlanes() {
         List<PassengerPlane> passengerPlanes = new ArrayList<>();
         for (Plane plane : planes) {
             if (plane instanceof PassengerPlane) {
@@ -43,7 +45,7 @@ public class Airport {
     }
 
     public PassengerPlane getPassengerPlaneWithMaxPassengersCapacity() {
-        List<PassengerPlane> passengerPlanes = getPassengerPlane();
+        List<PassengerPlane> passengerPlanes = getPassengerPlanes();
         PassengerPlane planeWithMaxCapacity = passengerPlanes.get(0);
         for (PassengerPlane passengerPlane : passengerPlanes) {
             if (passengerPlane.getPassengersCapacity() > planeWithMaxCapacity.getPassengersCapacity()) {
@@ -62,6 +64,17 @@ public class Airport {
             }
         }
         return militaryPlanesByCertainType;
+    }
+
+    public List<ExperimentalPlane> getExperimentalPlanesByCertainType(ExperimentalType experimentalType) {
+        List<ExperimentalPlane> experimentalPlanes = getExperimentalPlanes();
+        List<ExperimentalPlane> experimentalPlanesByCertainType = new ArrayList<>();
+        for (ExperimentalPlane experimentalPlane : experimentalPlanes) {
+            if (experimentalPlane.getExperimentalType() == experimentalType) {
+                experimentalPlanesByCertainType.add(experimentalPlane);
+            }
+        }
+        return experimentalPlanesByCertainType;
     }
 
     public List<ExperimentalPlane> getExperimentalPlanes() {
@@ -84,7 +97,7 @@ public class Airport {
     }
 
     public Airport sortPlanesByMaxFlightDistance() {
-        planes.sort(Comparator.comparingInt(Plane::GetMaxFlightDistance));
+        planes.sort(Comparator.comparingInt(Plane::getMaxFlightDistance));
         return this;
     }
 
