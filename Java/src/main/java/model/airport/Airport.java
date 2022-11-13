@@ -88,12 +88,12 @@ public class Airport {
     }
 
     public List<ClassificationLevelType> getClassificationLevelsInExperimentalPlanes() {
-        List<ClassificationLevelType> classificationLevels = new ArrayList<>();
+        List<ClassificationLevelType> classificationLevelsTypes = new ArrayList<>();
         List<ExperimentalPlane> experimentalPlanes = getExperimentalPlanes();
         for (ExperimentalPlane experimentalPlane : experimentalPlanes) {
-            classificationLevels.add(experimentalPlane.getClassificationLevel());
+            classificationLevelsTypes.add(experimentalPlane.getClassificationLevelTypes());
         }
-        return classificationLevels;
+        return classificationLevelsTypes;
     }
 
     public Airport sortPlanesByMaxFlightDistance() {

@@ -16,7 +16,7 @@ public class ExperimentalPlane extends Plane{
         this.classificationLevel = classificationLevel;
     }
 
-    public ClassificationLevelType getClassificationLevel(){
+    public ClassificationLevelType getClassificationLevelTypes(){
         return classificationLevel;
     }
 

@@ -37,14 +37,13 @@ public class AirportTest {
     private static final MilitaryType TRANSPORT_MILITARY_TYPE = MilitaryType.TRANSPORT;
     private static final MilitaryType BOMBER_MILITARY_TYPE = MilitaryType.BOMBER;
     private static final MilitaryType FIGHTER_MILITARY_TYPE = MilitaryType.FIGHTER;
+    private static final MilitaryPlane BOMBER_MILITARY_PLANE =
+            new MilitaryPlane("B-1B Lancer", 1050, 21000, 80000, MilitaryType.BOMBER);
     private static final ExperimentalType VTOL_EXPERIMENTAL_TYPE = ExperimentalType.VTOL;
     private static final ExperimentalType HIGH_ALTITUDE_EXPERIMENTAL_TYPE = ExperimentalType.HIGH_ALTITUDE;
     private static final ExperimentalType LIFTING_BODY_EXPERIMENTAL_TYPE = ExperimentalType.LIFTING_BODY;
     private static final ClassificationLevelType UNCLASSIFIED_EXPERIMENTAL_CLASSIFICATION_LEVEL_TYPE = ClassificationLevelType.UNCLASSIFIED;
     private static final ClassificationLevelType CONFIDENTIAL_EXPERIMENTAL_CLASSIFICATION_LEVEL_TYPE = ClassificationLevelType.CONFIDENTIAL;
-
-    private static final MilitaryPlane BOMBER_MILITARY_PLANE =
-            new MilitaryPlane("B-1B Lancer", 1050, 21000, 80000, MilitaryType.BOMBER);
 
     @Test
     public void testHasPlanes() {
@@ -126,12 +125,12 @@ public class AirportTest {
     }
 
     @Test
-    public void testExperimentalPlanesHasClassificationLevelHigherThanUnclassified(){
+    public void testHasExperimentalPlanesWithClassificationLevelTypeHigherThanUnclassified(){
         Assert.assertFalse(new Airport(planes).getClassificationLevelsInExperimentalPlanes().contains(UNCLASSIFIED_EXPERIMENTAL_CLASSIFICATION_LEVEL_TYPE));
     }
 
     @Test
-    public void testExperimentalPlanesHasConfidentialLevelHigherThanUnclassified(){
+    public void testHasExperimentalPlanesWithClassificationLevelTypeHigherThanConfidential(){
         Assert.assertFalse(new Airport(planes).getClassificationLevelsInExperimentalPlanes().contains(CONFIDENTIAL_EXPERIMENTAL_CLASSIFICATION_LEVEL_TYPE));
     }
 
