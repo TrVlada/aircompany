@@ -125,12 +125,12 @@ public class AirportTest {
     }
 
     @Test
-    public void testHasExperimentalPlanesWithClassificationLevelTypeHigherThanUnclassified(){
+    public void testHasNotExperimentalPlanesWithClassificationLevelTypeWithUnclassifiedType(){
         Assert.assertFalse(new Airport(planes).getClassificationLevelsInExperimentalPlanes().contains(UNCLASSIFIED_EXPERIMENTAL_CLASSIFICATION_LEVEL_TYPE));
     }
 
     @Test
-    public void testHasExperimentalPlanesWithClassificationLevelTypeHigherThanConfidential(){
+    public void testHasNotExperimentalPlanesWithClassificationLevelTypeWithConfidentialType(){
         Assert.assertFalse(new Airport(planes).getClassificationLevelsInExperimentalPlanes().contains(CONFIDENTIAL_EXPERIMENTAL_CLASSIFICATION_LEVEL_TYPE));
     }
 
